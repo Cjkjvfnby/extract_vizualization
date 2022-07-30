@@ -1,0 +1,41 @@
+name: Test and lint
+
+on:
+  pull_request:
+    types:
+      - opened
+      - edited
+      - reopened
+      - synchronize
+    paths:
+      - '**.py'
+      - '.github/workflows/**'
+      - '.flake8'
+      - 'requirements-ci.txt'
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-python@v3
+        with:
+          python-version: 3.9
+      - name: Install dependencies
+        run: |
+          pip install -r requirements-dev.txt
+      - uses: pre-commit/action@v3.0.0
+      - name: Test with pytest
+        run: |
+          pytest -v --cov=zip_cloud --cov-report xml:coverage.xml
+      - name: Report coverage
+        uses: 5monkeys/cobertura-action@master
+        with:
+          path: coverage.xml
+          skip_covered: true
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          minimum_coverage: 42
+          show_missing: true
+          link_missing_lines: true
+          report_name: Poject coverage
+          link_missing_lines_source_dir: zip_cloud
