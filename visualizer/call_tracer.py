@@ -23,7 +23,7 @@ class CommandRegister:
         return iter(self._inner)
 
 
-class CallTracer(BinaryIO):
+class CallTracer:
     def __init__(self, proxy_instance: BinaryIO, collector: CommandRegister):
         self._collector = collector
         self._proxy_instance = proxy_instance
