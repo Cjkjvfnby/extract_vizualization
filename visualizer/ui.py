@@ -2,9 +2,9 @@ from typing import Any
 
 import streamlit as st
 
-from visualizer.build_plot import build_plot
-from visualizer.extractor import extract_file
-from visualizer.make_archive import make_zip
+from visualizer.create_archive import make_zip
+from visualizer.extract_archive import extract_file
+from visualizer.table_creator import create_table
 
 
 class UI:
@@ -35,7 +35,7 @@ class UI:
     def draw_extraction_process(self, files: list[str]) -> None:
         commands = extract_file(self._archive, files)
         st.container().markdown(
-            build_plot(self._size, commands), unsafe_allow_html=True
+            create_table(self._size, commands), unsafe_allow_html=True
         )
 
     def _draw_extraction_form(self, container: Any) -> None:

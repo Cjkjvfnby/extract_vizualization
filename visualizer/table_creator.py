@@ -2,21 +2,21 @@ import base64
 from typing import Iterator, Union
 
 from visualizer.call_tracer import Call, CommandRegister
-from visualizer.swg_draw import Plotter
+from visualizer.make_swg import SwgMaker
 
 
-class Builder:
+class _TableBuilder:
     def __init__(self, size: int):
         self._size = size
         self._result = []
-        self._plotter = Plotter(size, 200)
+        self._plotter = SwgMaker(size, 200)
         self._columns = "Operation", "Process", "Description"
 
     def add_call(self, call: Call) -> None:
         if call.name == "seek":
-            self._process_seek(call)
+            self._handle_seek(call)
         elif call.name == "read":
-            self._process_read(call)
+            self._handle_read(call)
 
     def _to_img(self, swg: str) -> str:
         data_base64 = base64.b64encode(swg.encode())  # encode to base64 (bytes)
@@ -59,7 +59,7 @@ class Builder:
             ]
         )
 
-    def _process_seek(self, call: Call) -> None:
+    def _handle_seek(self, call: Call) -> None:
         offset, *whence = call.args
         default_whence = 0
         whence = whence[0] if whence else default_whence
@@ -78,7 +78,7 @@ class Builder:
                 f"Seek from the start of the file with {offset=} and stop at the position {call.result}",
             )
 
-    def _process_read(self, call: Call) -> None:
+    def _handle_read(self, call: Call) -> None:
         if len(call.args) == 1:
             read_bytes = call.args[0]
             self._add_read(
@@ -121,8 +121,8 @@ class Builder:
         yield "</table>"
 
 
-def build_plot(size: int, registry: CommandRegister) -> str:
-    builder = Builder(size)
+def create_table(size: int, registry: CommandRegister) -> str:
+    builder = _TableBuilder(size)
 
     for section in registry:
         title, *items = section

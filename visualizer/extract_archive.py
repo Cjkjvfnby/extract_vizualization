@@ -1,10 +1,10 @@
-import io
+from typing import BinaryIO
 from zipfile import ZipFile
 
 from visualizer.call_tracer import CallTracer, CommandRegister
 
 
-def extract_file(zipped: io.BytesIO, file_to_extract: list[str]) -> CommandRegister:
+def extract_file(zipped: BinaryIO, file_to_extract: list[str]) -> CommandRegister:
     commands = CommandRegister()
     zipped.seek(0)
     archive = CallTracer(zipped, commands)

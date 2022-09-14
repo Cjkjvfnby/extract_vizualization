@@ -1,4 +1,4 @@
-from typing import Any, Callable, Iterator, NamedTuple, TypeVar
+from typing import Any, BinaryIO, Callable, Iterator, NamedTuple
 
 
 class Call(NamedTuple):
@@ -23,18 +23,15 @@ class CommandRegister:
         return iter(self._inner)
 
 
-Wrapped = TypeVar("Wrapped")
-
-
-class CallTracer:
-    def __init__(self, proxy_instance: Wrapped, collector: CommandRegister):
+class CallTracer(BinaryIO):
+    def __init__(self, proxy_instance: BinaryIO, collector: CommandRegister):
         self._collector = collector
         self._proxy_instance = proxy_instance
 
-    def __getattr__(self, item: str) -> Wrapped:
+    def __getattr__(self, item: str) -> Any:
         function = getattr(self._proxy_instance, item)
 
-        def wrapper(*args: Any, **kwargs: Any) -> Callable[[Any], Wrapped]:
+        def wrapper(*args: Any, **kwargs: Any) -> Callable[[Any], Any]:
             offset = self._proxy_instance.tell()
             result = function(*args, **kwargs)
             call = Call(
