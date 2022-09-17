@@ -1,8 +1,5 @@
 ![](https://img.shields.io/badge/code%20style-black-000000.svg)
 
-# Visialization
-[streamlit](https://cjkjvfnby-extract-vizualization-app-kchce5.streamlitapp.com/)
-
 # Development
 
 ## Install dev requirements
