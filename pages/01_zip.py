@@ -50,3 +50,11 @@ class ExtractZip(ExtractBase):
 
 
 ExtractZip().draw()
+
+import sys
+import os
+import streamlit as st
+
+st.markdown(os.curdir)
+st.markdown(os.path.abspath(os.curdir))
+st.markdown("\n".join(sys.path))
