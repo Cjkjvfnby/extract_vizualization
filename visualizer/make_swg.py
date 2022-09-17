@@ -18,9 +18,8 @@ class Command(NamedTuple):
 
 
 class SwgMaker:
-    def __init__(self, file_bytes: int, size: int):
+    def __init__(self, file_bytes: int):
         self._file_bytes = file_bytes
-        self._size = size
         self._height = 10
         self._border = 1
 
@@ -39,8 +38,6 @@ class SwgMaker:
         return d
 
     def to_swg(self, d: drawSvg.Drawing) -> str:
-        scale = int(self._file_bytes / self._size)
-        d = d.setPixelScale(scale)
         return d.asSvg()
 
     def make_read(self, start: int, end: int) -> str:

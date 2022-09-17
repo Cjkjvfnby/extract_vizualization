@@ -41,3 +41,9 @@ class CallTracer:
             return result
 
         return wrapper
+
+
+def wrap_to_tracer(proxy_instance: BinaryIO) -> tuple[BinaryIO, CommandRegister]:
+    register = CommandRegister()
+    wrapped: BinaryIO = CallTracer(proxy_instance, register)
+    return wrapped, register
