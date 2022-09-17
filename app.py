@@ -15,10 +15,3 @@ st.markdown(
 | **{gzip_text}** | 1    | stream        | [extract gzip](/gzip)
 """
 )
-
-import sys
-import os
-
-st.markdown(os.curdir)
-st.markdown(os.path.abspath(os.curdir))
-st.markdown("\n".join(sys.path))
