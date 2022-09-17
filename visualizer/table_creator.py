@@ -9,7 +9,7 @@ class _TableBuilder:
     def __init__(self, size: int):
         self._size = size
         self._result = []
-        self._plotter = SwgMaker(size, 200)
+        self._plotter = SwgMaker(size)
         self._columns = "Operation", "Process", "Description"
 
     def add_call(self, call: Call) -> None:
