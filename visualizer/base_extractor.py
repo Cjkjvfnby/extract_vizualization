@@ -11,8 +11,6 @@ from visualizer.table_creator import create_table
 class ExtractBase(ABC):
     def __init__(self):
         st.set_page_config(layout="wide")
-
-        self._file_names = self.get_file_names()
         self._archive, self._size = self._make_archive()
         self._screen_size = 1000
 
@@ -20,12 +18,6 @@ class ExtractBase(ABC):
     def get_title(self) -> str:
         """
         Return page title.
-        """
-
-    @abstractmethod
-    def get_file_names(self) -> list[str]:
-        """
-        Return list of files to pack into archive.
         """
 
     def _make_archive(self) -> tuple[BinaryIO, int]:
@@ -43,7 +35,7 @@ class ExtractBase(ABC):
 
     def draw(self) -> None:
         left, right = st.columns(2)
-        self.make_extraction_form(right, self._file_names, self._extraction_callback)
+        self.make_extraction_form(right, self._extraction_callback)
         left.markdown(self.get_title())
         with left.expander("Archive creation code"):
             func, _ = self.get_create_archive_func_and_args()
@@ -67,7 +59,6 @@ class ExtractBase(ABC):
     def make_extraction_form(
         self,
         container: Any,
-        file_names: list[str],
         callback: Callable[[list[str]], None],
     ) -> None:
         """Make form to run extraction."""

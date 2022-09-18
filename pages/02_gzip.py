@@ -10,12 +10,6 @@ class ExtractGzip(ExtractBase):
     def get_create_archive_func_and_args(self) -> tuple[Callable, tuple]:
         return make_gzip, ()
 
-    def get_file_names(self) -> list[str]:
-        """
-        Return list of files to pack into archive.
-        """
-        return ["file.txt"]
-
     def extract_archive(self, files: list[str]) -> CommandRegister:
         """
         Extract archive and return list of commands.
@@ -32,7 +26,6 @@ class ExtractGzip(ExtractBase):
     def make_extraction_form(
         self,
         container: Any,
-        file_names: list[str],
         callback: Callable[[list[str]], None],
     ) -> None:
         form = container.form("Extraction")

@@ -1,4 +1,4 @@
-from typing import Any, Callable
+from typing import Any, Callable, Sequence
 
 from visualizer.base_extractor import ExtractBase
 from visualizer.call_tracer import CommandRegister
@@ -7,14 +7,17 @@ from visualizer.extract_archive import extract_zip_file
 
 
 class ExtractZip(ExtractBase):
+    def __init__(self):
+        super().__init__()
+
     def get_create_archive_func_and_args(self) -> tuple[Callable, tuple]:
         return make_zip, (self.get_file_names(),)
 
-    def get_file_names(self) -> list[str]:
+    def get_file_names(self) -> Sequence[str]:
         """
         Return list of files to pack into archive.
         """
-        return ["file1.txt", "file2.txt", "file3.txt"]
+        return "file1.txt", "file2.txt", "file3.txt"
 
     def extract_archive(self, files: list[str]) -> CommandRegister:
         return extract_zip_file(self._archive, files)
@@ -35,9 +38,9 @@ class ExtractZip(ExtractBase):
     def make_extraction_form(
         self,
         container: Any,
-        file_names: list[str],
         callback: Callable[[list[str]], None],
     ) -> None:
+        file_names = self.get_file_names()
         form = container.form("extraction select")
         form.write("Select files to extract")
         checkboxes = []
