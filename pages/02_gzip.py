@@ -1,4 +1,4 @@
-from typing import Any, BinaryIO, Callable
+from typing import Any, Callable
 
 from visualizer.base_extractor import ExtractBase
 from visualizer.call_tracer import CommandRegister
@@ -7,8 +7,8 @@ from visualizer.extract_archive import extract_gzip_file
 
 
 class ExtractGzip(ExtractBase):
-    def make_archive(self, filenames: list[str]) -> tuple[BinaryIO, int]:
-        return make_gzip()
+    def get_create_archive_func_and_args(self) -> tuple[Callable, tuple]:
+        return make_gzip, ()
 
     def get_file_names(self) -> list[str]:
         """

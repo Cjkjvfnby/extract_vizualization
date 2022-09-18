@@ -1,3 +1,4 @@
+import inspect
 from abc import ABC, abstractmethod
 from typing import Any, BinaryIO, Callable
 
@@ -12,7 +13,7 @@ class ExtractBase(ABC):
         st.set_page_config(layout="wide")
 
         self._file_names = self.get_file_names()
-        self._archive, self._size = self.make_archive(self._file_names)
+        self._archive, self._size = self._make_archive()
         self._screen_size = 1000
 
     @abstractmethod
@@ -27,16 +28,28 @@ class ExtractBase(ABC):
         Return list of files to pack into archive.
         """
 
-    @abstractmethod
-    def make_archive(self, filenames: list[str]) -> tuple[BinaryIO, int]:
+    def _make_archive(self) -> tuple[BinaryIO, int]:
         """
         Create a zip archive with files.
+        """
+        func, args = self.get_create_archive_func_and_args()
+        return func(*args)
+
+    @abstractmethod
+    def get_create_archive_func_and_args(self) -> tuple[Callable, tuple]:
+        """
+        Return a function and its argument to create an archive.
         """
 
     def draw(self) -> None:
         left, right = st.columns(2)
         self.make_extraction_form(right, self._file_names, self._extraction_callback)
         left.markdown(self.get_title())
+        with left.expander("Archive creation code"):
+            func, _ = self.get_create_archive_func_and_args()
+            function_text = inspect.getsource(func)
+            text = ["```python", function_text, "```"]
+            st.markdown("\n".join(text))
 
     @abstractmethod
     def extract_archive(self, files: list[str]) -> CommandRegister:
