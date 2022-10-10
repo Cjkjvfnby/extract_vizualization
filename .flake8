@@ -3,7 +3,7 @@ ignore = E203, E501, W503, PLC0301 # handled by black
          ANN101, ANN204, ANN401,
          D,
          # Pylint docs
-         PLC0114, PLC0115,PLC0116,
+         PLC0114, PLC0115, PLC0116,
          # Streamlit pages violate file name convention
          PLC0103,
          # Skip pylint imports
