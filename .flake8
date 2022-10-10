@@ -1,13 +1,10 @@
 [flake8]
 ignore = E203, E501, W503, PLC0301 # handled by black
          ANN101, ANN204, ANN401,
-         D,
-         # Pylint docs
-         PLC0114, PLC0115, PLC0116,
-         # Streamlit pages violate file name convention
-         PLC0103,
-         # Skip pylint imports
-         PLE0401,
+         PLC0114, PLC0115, PLC0116,  # Pylint docs
+         PLE0401,  # Skip pylint imports
+         D,  # all docs
+         PLC0103,  # Streamlit pages violate file name convention
 
 exclude =
     *_venv
