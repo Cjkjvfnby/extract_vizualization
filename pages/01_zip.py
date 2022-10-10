@@ -1,9 +1,6 @@
 from typing import Any, Callable, Sequence
 
-from visualizer.base_extractor import ExtractBase
-from visualizer.call_tracer import CommandRegister
-from visualizer.create_archive import make_zip
-from visualizer.extract_archive import extract_zip_file
+from visualizer import CommandRegister, ExtractBase, extract_zip_file, make_zip
 
 
 class ExtractZip(ExtractBase):

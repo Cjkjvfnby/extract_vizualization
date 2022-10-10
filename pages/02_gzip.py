@@ -1,9 +1,6 @@
 from typing import Any, Callable
 
-from visualizer.base_extractor import ExtractBase
-from visualizer.call_tracer import CommandRegister
-from visualizer.create_archive import make_gzip
-from visualizer.extract_archive import extract_gzip_file
+from visualizer import CommandRegister, ExtractBase, extract_gzip_file, make_gzip
 
 
 class ExtractGzip(ExtractBase):
