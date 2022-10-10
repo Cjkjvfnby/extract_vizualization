@@ -7,9 +7,6 @@ from visualizer.extract_archive import extract_zip_file
 
 
 class ExtractZip(ExtractBase):
-    def __init__(self):
-        super().__init__()
-
     def get_create_archive_func_and_args(self) -> tuple[Callable, tuple]:
         return make_zip, (self.get_file_names(),)
 

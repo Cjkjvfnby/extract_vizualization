@@ -9,7 +9,6 @@ ignore = E203, E501, W503, PLC0301 # handled by black
          # Skip pylint imports
          PLE0401,
 
-
 exclude =
     *_venv
     venv_*

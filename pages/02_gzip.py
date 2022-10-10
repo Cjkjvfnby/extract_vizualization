@@ -10,7 +10,7 @@ class ExtractGzip(ExtractBase):
     def get_create_archive_func_and_args(self) -> tuple[Callable, tuple]:
         return make_gzip, ()
 
-    def extract_archive(self, files: list[str]) -> CommandRegister:
+    def extract_archive(self, _: list[str]) -> CommandRegister:
         """
         Extract archive and return list of commands.
         """
