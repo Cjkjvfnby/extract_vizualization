@@ -1,4 +1,5 @@
-from typing import Any, Callable, Sequence
+from collections.abc import Callable, Sequence
+from typing import Any
 
 from visualizer import CommandRegister, ExtractBase, extract_zip_file, make_zip
 
@@ -37,9 +38,7 @@ class ExtractZip(ExtractBase):
         file_names = self.get_file_names()
         form = container.form("extraction select")
         form.write("Select files to extract")
-        checkboxes = []
-        for name in file_names:
-            checkboxes.append(form.checkbox(name))
+        checkboxes = [form.checkbox(name) for name in file_names]
         submitted = form.form_submit_button("Extract")
         if submitted:
             files = [file_names[i] for i, val in enumerate(checkboxes) if val]

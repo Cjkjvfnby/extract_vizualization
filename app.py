@@ -13,5 +13,5 @@ st.markdown(
 | :---    | ---              |---         |  ---           | --- |
 | **zip**  | many | random access | [try it](/zip) | {ZIP_TEXT} |
 | **gzip** | 1    | stream        | [try it](/gzip) | {GZIP_TEXT} |
-"""
+""",
 )

@@ -1,6 +1,7 @@
 import inspect
 from abc import ABC, abstractmethod
-from typing import Any, BinaryIO, Callable
+from collections.abc import Callable
+from typing import Any, BinaryIO
 
 import streamlit as st
 
@@ -52,7 +53,8 @@ class ExtractBase(ABC):
     def _extraction_callback(self, files: list[str]) -> None:
         commands = self.extract_archive(files)
         st.container().markdown(
-            create_table(self._size, commands), unsafe_allow_html=True
+            create_table(self._size, commands),
+            unsafe_allow_html=True,
         )
 
     @abstractmethod

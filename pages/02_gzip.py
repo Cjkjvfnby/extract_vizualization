@@ -1,4 +1,5 @@
-from typing import Any, Callable
+from collections.abc import Callable
+from typing import Any
 
 from visualizer import CommandRegister, ExtractBase, extract_gzip_file, make_gzip
 

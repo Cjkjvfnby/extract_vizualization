@@ -1,8 +1,15 @@
-import base64
-from typing import Iterator, Union
+from __future__ import annotations
 
-from visualizer.call_tracer import Call, CommandRegister
+import base64
+import io
+from typing import TYPE_CHECKING
+
 from visualizer.make_swg import SwgMaker
+
+if TYPE_CHECKING:
+    from collections.abc import Iterator
+
+    from visualizer.call_tracer import Call, CommandRegister
 
 
 class _TableBuilder:
@@ -27,20 +34,27 @@ class _TableBuilder:
         self._result.append([text])
 
     def _add_read(
-        self, call_args: tuple, start_offset: int, end_offset: int, text: str
+        self,
+        call_args: tuple,
+        start_offset: int,
+        end_offset: int,
+        text: str,
     ) -> None:
-
         args = ", ".join(map(str, call_args))
         self._result.append(
             [
                 f"read({args})",
                 self._to_img(self._plotter.make_read(start_offset, end_offset)),
                 text,
-            ]
+            ],
         )
 
     def _add_seek(
-        self, call_args: tuple, start_offset: int, end_offset: int, text: str
+        self,
+        call_args: tuple,
+        start_offset: int,
+        end_offset: int,
+        text: str,
     ) -> None:
         if len(call_args) == 1:
             args = str(call_args[0])
@@ -56,21 +70,21 @@ class _TableBuilder:
                 f"seek({args})",
                 self._to_img(self._plotter.make_seek(start_offset, end_offset)),
                 text,
-            ]
+            ],
         )
 
     def _handle_seek(self, call: Call) -> None:
         offset, *whence = call.args
         default_whence = 0
         whence = whence[0] if whence else default_whence
-        if whence == 2:
+        if whence == io.SEEK_END:
             self._add_seek(
                 call.args,
                 -1,
                 call.end_offset,
                 f"Seek from the end of the file with {offset=} and stop at the position {call.result}",
             )
-        elif whence == 0:
+        elif whence == io.SEEK_SET:
             self._add_seek(
                 call.args,
                 call.start_offset,
@@ -103,7 +117,7 @@ class _TableBuilder:
         yield "</tr>"
         yield "</thead>"
 
-    def _build_row(self, row: Union[tuple[str], tuple[str, str, str]]) -> Iterator[str]:
+    def _build_row(self, row: tuple[str] | tuple[str, str, str]) -> Iterator[str]:
         yield "<tr>"
         if len(row) == 1:
             yield f'<td style="text-align: center;" colspan=3><strong>{row[0]}</strong></td>'

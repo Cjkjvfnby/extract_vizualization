@@ -27,12 +27,16 @@ class SwgMaker:
         border = self._border
         bg_width = self._file_bytes + 2 * border
         bg_height = self._height + 2 * border
-        widht = self._file_bytes
+        width = self._file_bytes
 
         d = drawsvg.Drawing(bg_width, bg_height, displayInline=False)
         background = drawsvg.Rectangle(0, 0, bg_width, bg_height, fill="gray")
         file_block = drawsvg.Rectangle(
-            border, border, widht, self._height, fill="white"
+            border,
+            border,
+            width,
+            self._height,
+            fill="white",
         )
         d.extend([background, file_block])
         return d
@@ -44,7 +48,11 @@ class SwgMaker:
         border = self._border
         d = self._make_swg()
         read_block = drawsvg.Rectangle(
-            start + border, border, end - start, self._height, fill="green"
+            start + border,
+            border,
+            end - start,
+            self._height,
+            fill="green",
         )
         d.append(read_block)
         return self.to_swg(d)
@@ -53,10 +61,18 @@ class SwgMaker:
         border = self._border
         d = self._make_swg()
         start_seek = drawsvg.Rectangle(
-            start + border, border, 1, self._height, fill="green"
+            start + border,
+            border,
+            1,
+            self._height,
+            fill="green",
         )
         end_seek = drawsvg.Rectangle(
-            end + border, border, 1, self._height, fill="green"
+            end + border,
+            border,
+            1,
+            self._height,
+            fill="green",
         )
         d.extend([start, start_seek, end_seek])
         return self.to_swg(d)

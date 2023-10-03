@@ -11,12 +11,14 @@ select = ["ALL"]
 ignore = [
     "ANN101", "ANN204", "ANN401",
     "D104", # no docstring in public package
-    "D200", # One-line docstring should fit on one line with quotes
-    "D212",
+    "D",
+    "D1",
     "RSE102",
-    "D203",
     "FLY002", # fix produces invalid code https://github.com/astral-sh/ruff/issues/5150
     "E501", # black will take care about it
+    "INP001",
 ]
-
 target-version = "py311"
+
+[tool.ruff.per-file-ignores]
+"__init__.py" = ["F401"]

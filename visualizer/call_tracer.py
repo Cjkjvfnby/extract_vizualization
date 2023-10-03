@@ -1,4 +1,5 @@
-from typing import Any, BinaryIO, Callable, Iterator, NamedTuple
+from collections.abc import Callable, Iterator
+from typing import Any, BinaryIO, NamedTuple
 
 
 class Call(NamedTuple):
@@ -23,7 +24,7 @@ class CommandRegister:
         return iter(self._inner)
 
 
-class CallTracer:  # noqa: too-few-public-methods
+class CallTracer:
     def __init__(self, proxy_instance: BinaryIO, collector: CommandRegister):
         self._collector = collector
         self._proxy_instance = proxy_instance
@@ -35,7 +36,11 @@ class CallTracer:  # noqa: too-few-public-methods
             offset = self._proxy_instance.tell()
             result = function(*args, **kwargs)
             call = Call(
-                function.__name__, offset, self._proxy_instance.tell(), args, result
+                function.__name__,
+                offset,
+                self._proxy_instance.tell(),
+                args,
+                result,
             )
             self._collector.append(call)
             return result
