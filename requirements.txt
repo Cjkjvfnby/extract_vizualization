@@ -1,2 +1,2 @@
-streamlit==1.13.0
-drawSvg==1.8.3
+streamlit==1.27.1
+drawSvg==2.3.0

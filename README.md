@@ -3,6 +3,13 @@
 # Visialization
 Application is deployed to the [Streamlit cloud](https://cjkjvfnby-extract-vizualization-app-kchce5.streamlitapp.com/)
 
+
+# Run locally
+```shell
+streamlit run app.py
+```
+
+
 # Development
 
 ## Install dev requirements
