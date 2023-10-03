@@ -32,8 +32,3 @@ pip install -r requirements-dev.txt
 ```shell
 pre-commit run --all-files
 ```
-
-## Run test
-```shell
-pytest --cov=zip_cloud --cov-report html
-```
