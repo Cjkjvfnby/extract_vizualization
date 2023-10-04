@@ -1,6 +1,6 @@
-![](https://img.shields.io/badge/code%20style-black-000000.svg)
+[![Ruff](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/ruff/main/assets/badge/v2.json)](https://github.com/astral-sh/ruff)
 
-# Visialization
+# Visualization
 Application is deployed to the [Streamlit cloud](https://cjkjvfnby-extract-vizualization-app-kchce5.streamlitapp.com/)
 
 
