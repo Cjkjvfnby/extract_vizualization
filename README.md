@@ -1,7 +1,7 @@
 [![Ruff](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/ruff/main/assets/badge/v2.json)](https://github.com/astral-sh/ruff)
 
 # Visualization
-Application is deployed to the [Streamlit cloud](https://cjkjvfnby-extract-vizualization-app-kchce5.streamlitapp.com/)
+Application is deployed to the [Streamlit cloud](https://extract-vizualization.streamlit.app)
 
 
 # Run locally
