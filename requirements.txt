@@ -1,2 +1,2 @@
 streamlit==1.27.2
-drawSvg==2.3.0
+drawSvg==2.4.0
